@@ -1,0 +1,17 @@
+# WooCommerce API integration
+woocommerce==3.0.0
+
+# CSV handling and data processing
+pandas==2.2.2
+
+# OpenAI API for AI-generated content
+openai==1.30.1
+
+# Secure environment variable loading
+python-dotenv==1.0.1
+
+# Optional: HTTP requests (for downloading images or external data)
+requests==2.32.3
+
+# Optional: Image metadata handling (for alt text/title generation)
+Pillow==10.4.0

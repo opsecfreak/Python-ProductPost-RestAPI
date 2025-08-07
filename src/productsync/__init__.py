@@ -1,0 +1,1 @@
+"""Product Sync CLI package."""
