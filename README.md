@@ -102,6 +102,7 @@ python -m productsync.cli.main <command> [options]
 | stats   | Show dataset statistics | — |
 | enrich  | Enrich a single product by ID | `<product_id>` |
 | push    | Push pending enriched rows back | `--limit N` |
+| create  | Create a new product (and add to CSV) | `name price [--image URL] ...` |
 
 ### 6.1 Sync Products
 ```bash
@@ -122,6 +123,17 @@ python -m productsync.cli.main enrich 1234
 Prompts OpenAI with structured JSON request & validation. Updates row and flags `pending_push = True`.
 
 ### 6.4 Push Changes (Opt‑In)
+### 6.5 Create a New Product
+```bash
+python -m productsync.cli.main create "Sample AI Tee" 24.99 \
+	--short-description "Soft cotton tee" \
+	--description "A premium cotton tee perfect for everyday wear." \
+	--image https://yourcdn.com/images/tee-front.jpg \
+	--image https://yourcdn.com/images/tee-back.jpg \
+	--status draft
+```
+Returns JSON of created product and updates the local CSV (ready for later enrichment if desired).
+
 ```bash
 # First, in .env set ENABLE_PUSH_CHANGES=True
 python -m productsync.cli.main push --limit 5

@@ -23,3 +23,13 @@ class WooCommerceService:
         response = self.api.put(f"products/{product_id}", data)
         response.raise_for_status()
         return response.json()
+
+    def create_product(self, data: Dict[str, Any]) -> Dict[str, Any]:
+        """Create a new WooCommerce product.
+
+        Expected minimal keys: name, type (default 'simple'), regular_price (string), description/short_description optional.
+        Images can be supplied as list of {'src': 'https://...'}.
+        """
+        response = self.api.post("products", data)
+        response.raise_for_status()
+        return response.json()

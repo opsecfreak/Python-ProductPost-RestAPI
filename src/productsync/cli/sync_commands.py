@@ -65,3 +65,26 @@ def command_push(limit: int = 10) -> List[int]:
         pushed_ids.append(product_id)
     store.save_df(df)
     return pushed_ids
+
+
+def command_create_product(name: str, price: str, description: str = "", short_description: str = "", images: list[str] | None = None, status: str = "draft") -> dict:
+    """Create a new product in WooCommerce and add it to local CSV.
+
+    price must be string per WooCommerce API (e.g., "19.99").
+    images: list of URLs; will be mapped to [{'src': url}].
+    status: 'draft' (default) or 'publish'.
+    """
+    payload = {
+        'name': name,
+        'type': 'simple',
+        'regular_price': price,
+        'description': description,
+        'short_description': short_description,
+        'status': status,
+    }
+    if images:
+        payload['images'] = [{'src': u} for u in images]
+    created = woo.create_product(payload)
+    # Upsert so local CSV knows about it immediately
+    store.upsert_products([created])
+    return created
